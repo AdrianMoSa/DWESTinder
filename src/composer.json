@@ -1,12 +1,12 @@
 {
-    "name": "miguel/tinderdwes",
+    "name": "Adrian/tinderdwes",
     "description": "Prueba de ejemplo de una web de citas",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "Miguel",
-            "email": "migueltomas.informatica@iespacomolla.es"
+            "name": "Adrian",
+            "email": "adrianmoya.alu@iespacomolla.es"
         }
     ],
     "minimum-stability": "beta",
