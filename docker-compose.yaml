@@ -12,6 +12,7 @@ services:
       - ./.docker/apache/php.ini:/usr/local/etc/php/php.ini
       - ./.docker/apache/httpd.conf:/etc/apache2/conf-available/httpd.conf
       - ./.docker/apache/sites-enabled/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./.docker/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./src/:/var/www/html
     expose:
       - 80
@@ -23,7 +24,6 @@ services:
       - mysql
     networks:
       - tinder
-
   mysql:
     image: mariadb
     environment:
@@ -31,29 +31,32 @@ services:
       MARIADB_DATABASE: tinder
       MARIADB_USER: pringao
       MARIADB_PASSWORD: passwordpringao
-      PMA_HOST: mysql
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ./.mariadb:/var/lib/mysql:Z
+    networks:
+      - tinder
+    ports:
+      - "3307:3306"
+
   phpmyadmin:
     image: phpmyadmin
     environment:
-      MYSQL_ROOT_PASSWORD: toor
+      MYSQL:ROOT_PASSWORD: toor
       MYSQL_USER: pringao
       MYSQL_PASSWORD: passwordpringao
+      PMA_HOST: mysql
     ports:
       - '8083:80'
-    links:
-      - mysql
-    networks:
-      - tinder
+
 networks:
   tinder:
     name: tinder
     driver: bridge
 
-    #Descomentar si se desea acceder con una app de escritorio
-    #ports:
-      #- '3306:3306'
+      #Descomentar si se desea acceder con una app de escritorio.
+      #ports:
+    #- '3306:3306'
 
 # Lanzar con
 # docker-compose up -d –build
@@ -66,3 +69,6 @@ networks:
 # https://www.bornfight.com/blog/blog-lamp-docker-setup-with-php-8-and-mariadb-for-symfony-projects/
 
 # https://www.cloudsavvyit.com/10528/how-to-use-docker-to-containerise-php-and-apache/
+
+
+

@@ -52,8 +52,8 @@ class Router
                 }
                 break;
             case 3:
-                if ($ruta[1]==="api"){
-                    $endpoint="api/".$ruta[2];
+                if ($ruta[1]==="/api"){
+                    $endpoint="/api/".$ruta[2];
                     $parametros=[];
                 }else{
                     $endpoint=$ruta[1];
