@@ -21,4 +21,28 @@ class UsuarioModelo
 
     }
 
+    public static function borrarUsuarioBD(string $emailUsuario):bool{
+        $conexion = new \PDO('mysql:dbname=tinder;host=mysql','pringao','passwordpringao');
+        $conexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $sql = "DELETE FROM usuario WHERE email=:email";
+        $sentenciaPreparada = $conexion->prepare($sql);
+        $sentenciaPreparada->bindValue('email',$emailUsuario);
+        if($sentenciaPreparada->execute()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public static function cargarUsuario(string $emailUsuario):array
+    {
+        $conexion = new \PDO('mysql:dbname=tinder;host=mysql', 'pringao', 'passwordpringao');
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT * FROM usuario WHERE email=:email";
+        $sentenciaPreparada = $conexion->prepare($sql);
+        $sentenciaPreparada->bindValue('email', $emailUsuario);
+        $datosUsuario=$sentenciaPreparada->fetch(PDO::FETCH_ASSOC);
+        return $datosUsuario;
+    }
+
 }

@@ -61,7 +61,7 @@ class Router
                 }
                 break;
             case 4:
-                $endpoint="api/".$ruta[2];
+                $endpoint="/api/".$ruta[2];
                 $parametros=[$ruta[3]];
                 break;
             default:
